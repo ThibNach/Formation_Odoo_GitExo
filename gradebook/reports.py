@@ -83,9 +83,9 @@ def summarize_class(students: dict, grades: dict) -> tuple:
     
     student_average_list = {k : sum(v.values()) / len(v.values()) for k,v in grades.items()}
     class_average = sum(student_average_list.values()) / len(student_average_list.values())
-    sorted_average = sorted(student_average_list.items(), key=lambda item: item[1],reverse=True)
+    sorted_average = sorted(list(student_average_list.values()),reverse=True)
     
-    return total_students, round(class_average,2), sorted_average[0][1], sorted_average[-1][1]
+    return total_students, round(class_average,2), sorted_average[0], sorted_average[-1]
     
     
 
