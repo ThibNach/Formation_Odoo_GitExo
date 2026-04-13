@@ -32,10 +32,16 @@ def add_student(students: dict, name: str, student_id: str) -> dict:
         >>> db
         {"S001": {"name": "Alice", "id": "S001"}}
     """
-    # TODO: implement this function
-    raise NotImplementedError("add_student is not implemented yet.")
-
-
+    
+    if student_id in students:
+        print(f"Student {student_id} already exists!")
+    else:
+        formatted_name = name.strip().title()
+        students[student_id] = {"name": formatted_name, "id": student_id}
+    
+    return students 
+    
+    
 def remove_student(students: dict, student_id: str) -> dict:
     """
     Remove a student from the students dictionary by their ID.
@@ -56,9 +62,13 @@ def remove_student(students: dict, student_id: str) -> dict:
         >>> db
         {}
     """
-    # TODO: implement this function
-    raise NotImplementedError("remove_student is not implemented yet.")
-
+    if student_id not in students:
+        print(f"Student {student_id} not found!")
+    else:
+        students.pop(student_id)
+    
+    return students 
+    
 
 def find_student(students: dict, name: str) -> list:
     """
@@ -85,5 +95,11 @@ def find_student(students: dict, name: str) -> list:
         >>> find_student(db, "xyz")
         []
     """
-    # TODO: implement this function
-    raise NotImplementedError("find_student is not implemented yet.")
+    formatted_name = name.strip().lower()
+        
+    matching_student_list = [value for value in students.values() if formatted_name in value["name"].lower()]
+    
+    return matching_student_list
+    
+
+    
