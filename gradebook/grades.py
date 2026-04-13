@@ -35,8 +35,13 @@ def add_grade(grades: dict, student_id: str, subject: str, score: int) -> dict:
         >>> db
         {"S001": {"Math": 85}}
     """
-    # TODO: implement this function
-    raise NotImplementedError("add_grade is not implemented yet.")
+    if score < 0 or score > 100:
+        raise Exception(f"Invalid score: {score}. Score must be between 0 and 100.")
+    if student_id not in grades:
+        grades.update({student_id: {subject: score}})
+    else :
+        grades[student_id].update({subject: score})
+    return grades
 
 
 def get_average(grades: dict, student_id: str) -> float:
