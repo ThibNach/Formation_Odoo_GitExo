@@ -70,7 +70,6 @@ def remove_student(students: dict, student_id: str) -> dict:
     return students 
     
 
-
 def find_student(students: dict, name: str) -> list:
     """
     Search for students whose name contains the given string (case-insensitive).
@@ -96,5 +95,15 @@ def find_student(students: dict, name: str) -> list:
         >>> find_student(db, "xyz")
         []
     """
-    # TODO: implement this function
-    raise NotImplementedError("find_student is not implemented yet.")
+    
+    matching_student_list = []
+    formatted_name = name.strip().lower()
+    
+    for _, value in students.items():
+        if formatted_name in value["name"].lower():
+            matching_student_list.append(value)
+        
+    return matching_student_list
+    
+
+    
