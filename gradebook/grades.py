@@ -123,5 +123,10 @@ def get_failing_students(students: dict, grades: dict, threshold: int = 50) -> l
         >>> get_failing_students(students, grades)
         [("S001", "Alice", 40.0)]
     """
-    # TODO: implement this function
-    raise NotImplementedError("get_failing_students is not implemented yet.")
+    result = []
+    for student in students.values():
+        avg_student = get_average(grades, student["id"])
+        if avg_student < threshold:
+            result.append((student["id"], student["name"], avg_student))
+    result.sort(key=lambda x: x[2])
+    return result
