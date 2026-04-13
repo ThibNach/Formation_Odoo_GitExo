@@ -33,7 +33,17 @@ def add_student(students: dict, name: str, student_id: str) -> dict:
         {"S001": {"name": "Alice", "id": "S001"}}
     """
     # TODO: implement this function
-    raise NotImplementedError("add_student is not implemented yet.")
+    #raise NotImplementedError("add_student is not implemented yet.")
+    if student_id in students:
+        print(f"Warning! Student {student_id} already exists!")
+    else:
+        formatted_name = name.strip().title()
+        students[student_id] = {"name": formatted_name, "id": student_id}
+    
+    return students 
+    
+    
+db = {}
 
 
 def remove_student(students: dict, student_id: str) -> dict:
