@@ -33,7 +33,7 @@ def get_top_students(students: dict, grades: dict, n: int = 3) -> list :
     
     number_to_display = n if n<= len(students) else len(students)
 
-    student_average_list = {k : sum(v.values()) / len(v.values()) for k,v in grades.items()}
+    student_average_list = {k : get_average(grades, k) for k in grades}
     tuples =[]
     
     for student_id, average in sorted(student_average_list.items(), key=lambda item: item[1],reverse=True):
@@ -81,7 +81,7 @@ def summarize_class(students: dict, grades: dict) -> tuple:
         return 0, 0.0, 0.0, 0
     
     
-    student_average_list = {k : sum(v.values()) / len(v.values()) for k,v in grades.items()}
+    student_average_list = {k : get_average(grades, k) for k in grades}
     class_average = sum(student_average_list.values()) / len(student_average_list.values())
     sorted_average = sorted(list(student_average_list.values()),reverse=True)
     
@@ -122,8 +122,8 @@ def export_report(students: dict, grades: dict) -> str:
         str: the complete formatted report
     """
 
-    student_average_list = {k : sum(v.values()) / len(v.values()) for k,v in grades.items()}
-    students_report =[]
+    student_average_list = {k : get_average(grades, k) for k in grades}
+    students_report = []
     student_names = []
     
     for student in students.values():
