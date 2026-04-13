@@ -76,6 +76,11 @@ def summarize_class(students: dict, grades: dict) -> tuple:
     """
     
     total_students = len(students)
+    
+    if total_students <= 0:
+        return 0, 0.0, 0.0, 0
+    
+    
     student_average_list = {k : sum(v.values()) / len(v.values()) for k,v in grades.items()}
     class_average = sum(student_average_list.values()) / len(student_average_list.values())
     sorted_average = sorted(student_average_list.items(), key=lambda item: item[1],reverse=True)
@@ -116,5 +121,39 @@ def export_report(students: dict, grades: dict) -> str:
     Returns:
         str: the complete formatted report
     """
-    # TODO: implement this function
-    raise NotImplementedError("export_report is not implemented yet.")
+
+    student_average_list = {k : sum(v.values()) / len(v.values()) for k,v in grades.items()}
+    students_report =[]
+    student_names = []
+    
+    for student in students.values():
+        student_names.append(student["name"])
+    
+        
+    max_student_name = len(max(student_names, key=len))
+    
+    
+    for student_id, average in student_average_list.items():
+        subjects = ', '.join(grades[student_id]) if grades[student_id] else "None"
+        space_num = ( max_student_name + 5 ) - len(students[student_id]["name"])
+        students_report.append(f"{student_id} | {students[student_id]["name"]}{' '* space_num}| Avg: {'' if average >= 10 else ' '} {average} | Subjects: {subjects}")
+        
+    students_report.sort(key = lambda item : item[1])  
+    
+    return\
+        f"""
+        GRADEBOOK REPORT
+        Total students: {summarize_class(students,grades)[0]}
+        Class average: {summarize_class(students,grades)[1]}
+        
+        STUDENT DETAILS
+        {'\n        '.join(students_report)}      
+        __________________________________________________________________
+    """
+
+students = {
+   "S001": {"name": "Alice", "id": "S001"},
+  "S002": {"name": "Bob",   "id": "S002"},
+}
+grades = {"S001": {"Math": 80}, "S002": {"Math": 60}}
+print(export_report(students, grades))
