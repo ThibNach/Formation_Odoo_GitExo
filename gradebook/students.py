@@ -56,7 +56,7 @@ def remove_student(students: dict, student_id: str) -> dict:
     Returns:
         dict: the updated students dictionary
 
-    Example:aA
+    Example:
         >>> db = {"S001": {"name": "Alice", "id": "S001"}}
         >>> remove_student(db, "S001")
         >>> db
@@ -95,14 +95,10 @@ def find_student(students: dict, name: str) -> list:
         >>> find_student(db, "xyz")
         []
     """
-    
-    matching_student_list = []
     formatted_name = name.strip().lower()
-    
-    for _, value in students.items():
-        if formatted_name in value["name"].lower():
-            matching_student_list.append(value)
         
+    matching_student_list = [value for value in students.values() if formatted_name in value["name"].lower()]
+    
     return matching_student_list
     
 
