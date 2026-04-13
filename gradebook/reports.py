@@ -74,8 +74,15 @@ def summarize_class(students: dict, grades: dict) -> tuple:
         >>> summarize_class(students, grades)
         (2, 70.0, 80.0, 60.0)
     """
-    # TODO: implement this function
-    raise NotImplementedError("summarize_class is not implemented yet.")
+    
+    total_students = len(students)
+    student_average_list = {k : sum(v.values()) / len(v.values()) for k,v in grades.items()}
+    class_average = sum(student_average_list.values()) / len(student_average_list.values())
+    sorted_average = sorted(student_average_list.items(), key=lambda item: item[1],reverse=True)
+    
+    return total_students, round(class_average,2), sorted_average[0][1], sorted_average[-1][1]
+    
+    
 
 
 def export_report(students: dict, grades: dict) -> str:
@@ -111,11 +118,3 @@ def export_report(students: dict, grades: dict) -> str:
     """
     # TODO: implement this function
     raise NotImplementedError("export_report is not implemented yet.")
-
-students = {
-    "S001": {"name": "Alice", "id": "S001"},
-    "S002": {"name": "Bob",   "id": "S002"},
-    }
-
-grades = {"S001": {"Math": 90}, "S002": {"Math": 70}}
-get_top_students(students, grades, n=1)
