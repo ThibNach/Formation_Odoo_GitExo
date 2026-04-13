@@ -35,8 +35,13 @@ def add_grade(grades: dict, student_id: str, subject: str, score: int) -> dict:
         >>> db
         {"S001": {"Math": 85}}
     """
-    # TODO: implement this function
-    raise NotImplementedError("add_grade is not implemented yet.")
+    if 0 > score < 100:
+        raise Exception(f"Invalid score: {score}. Score must be between 0 and 100.")
+    if student_id not in grades:
+        grades.update({student_id: {subject: score}})
+    else :
+        grades[student_id].update({subject: score})
+    return grades
 
 
 def get_average(grades: dict, student_id: str) -> float:
@@ -60,8 +65,10 @@ def get_average(grades: dict, student_id: str) -> float:
         >>> get_average(db, "S999")
         0.0
     """
-    # TODO: implement this function
-    raise NotImplementedError("get_average is not implemented yet.")
+    if student_id not in grades:
+        return 0.0
+    scores = list(grades[student_id].values())
+    return round(sum(scores)/len(scores), 2)
 
 
 def get_subjects(grades: dict) -> set:
@@ -85,8 +92,11 @@ def get_subjects(grades: dict) -> set:
         >>> get_subjects(db)
         {"Math", "English", "Science"}
     """
-    # TODO: implement this function
-    raise NotImplementedError("get_subjects is not implemented yet.")
+    result = set()
+    for student in grades.values():
+        for subject in student:
+            result.add(subject)
+    return result
 
 
 def get_failing_students(students: dict, grades: dict, threshold: int = 50) -> list:
@@ -113,5 +123,10 @@ def get_failing_students(students: dict, grades: dict, threshold: int = 50) -> l
         >>> get_failing_students(students, grades)
         [("S001", "Alice", 40.0)]
     """
-    # TODO: implement this function
-    raise NotImplementedError("get_failing_students is not implemented yet.")
+    result = []
+    for student in students.values():
+        avg_student = get_average(grades, student["id"])
+        if avg_student < threshold:
+            result.append((student["id"], student["name"], avg_student))
+    result.sort(key=lambda x: x[2])
+    return result
