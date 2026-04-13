@@ -150,10 +150,3 @@ def export_report(students: dict, grades: dict) -> str:
         {'\n        '.join(students_report)}      
         __________________________________________________________________
     """
-
-students = {
-   "S001": {"name": "Alice", "id": "S001"},
-  "S002": {"name": "Bob",   "id": "S002"},
-}
-grades = {"S001": {"Math": 80}, "S002": {"Math": 60}}
-print(export_report(students, grades))
