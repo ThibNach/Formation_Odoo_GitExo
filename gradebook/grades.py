@@ -35,7 +35,7 @@ def add_grade(grades: dict, student_id: str, subject: str, score: int) -> dict:
         >>> db
         {"S001": {"Math": 85}}
     """
-    if 0 < score < 100:
+    if 0 > score < 100:
         raise Exception(f"Invalid score: {score}. Score must be between 0 and 100.")
     if student_id not in grades:
         grades.update({student_id: {subject: score}})
@@ -94,7 +94,7 @@ def get_subjects(grades: dict) -> set:
     """
     result = set()
     for student in grades.values():
-        for subject in student.keys() :
+        for subject in student:
             result.add(subject)
     return result
 
