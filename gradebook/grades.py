@@ -65,8 +65,10 @@ def get_average(grades: dict, student_id: str) -> float:
         >>> get_average(db, "S999")
         0.0
     """
-    # TODO: implement this function
-    raise NotImplementedError("get_average is not implemented yet.")
+    if student_id not in grades:
+        return 0.0
+    scores = list(grades[student_id].values())
+    return round(sum(scores)/len(scores), 2)
 
 
 def get_subjects(grades: dict) -> set:
