@@ -92,8 +92,11 @@ def get_subjects(grades: dict) -> set:
         >>> get_subjects(db)
         {"Math", "English", "Science"}
     """
-    # TODO: implement this function
-    raise NotImplementedError("get_subjects is not implemented yet.")
+    result = set()
+    for student in grades.values():
+        for subject in student.keys() :
+            result.add(subject)
+    return result
 
 
 def get_failing_students(students: dict, grades: dict, threshold: int = 50) -> list:
