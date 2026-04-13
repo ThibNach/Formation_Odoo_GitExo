@@ -4,8 +4,7 @@
 
 from grades import get_average
 
-
-def get_top_students(students: dict, grades: dict, n: int = 3) -> list:
+def get_top_students(students: dict, grades: dict, n: int = 3) -> list :
     """
     Return the top n students with the highest average scores.
 
@@ -31,10 +30,20 @@ def get_top_students(students: dict, grades: dict, n: int = 3) -> list:
         >>> get_top_students(students, grades, n=1)
         [("S001", "Alice", 90.0)]
     """
-    # TODO: implement this function
-    raise NotImplementedError("get_top_students is not implemented yet.")
+    
+    number_to_display = n if n<= len(students) else len(students)
 
+    student_average_list = {k : sum(v.values()) / len(v.values()) for k,v in grades.items()}
+    tuples =[]
+    
+    for student_id, average in sorted(student_average_list.items(), key=lambda item: item[1],reverse=True):
+        tuples.append((student_id, students[student_id]["name"], average))
+        
+    return tuples[:number_to_display]
 
+    
+        
+        
 def summarize_class(students: dict, grades: dict) -> tuple:
     """
     Return a summary of the whole class as a single tuple.
@@ -102,3 +111,11 @@ def export_report(students: dict, grades: dict) -> str:
     """
     # TODO: implement this function
     raise NotImplementedError("export_report is not implemented yet.")
+
+students = {
+    "S001": {"name": "Alice", "id": "S001"},
+    "S002": {"name": "Bob",   "id": "S002"},
+    }
+
+grades = {"S001": {"Math": 90}, "S002": {"Math": 70}}
+get_top_students(students, grades, n=1)
